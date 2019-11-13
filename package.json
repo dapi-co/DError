@@ -1,0 +1,14 @@
+{
+  "name": "@dapi-co/derror",
+  "version": "1.0.1",
+  "description": "Dapi error class for Moleculer framework.",
+  "main": "derror.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Moleculer"
+  ],
+  "author": "bloeys",
+  "license": "ISC"
+}
