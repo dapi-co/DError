@@ -42,7 +42,8 @@ module.exports = class DError extends MoleculerError {
       if (prevError instanceof Error)
         this.data.errStack[1] = {
           msg: prevError.message,
-          type: prevError.type || prevError.code,
+          code: prevError.code,
+          type: prevError.type,
           data: prevError.data
         }
 
