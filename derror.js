@@ -19,7 +19,6 @@ module.exports = class DError extends MoleculerError {
       }]
       return
     }
-    this.stack += prevError.stack
 
     //Cross network errors will be DError but will not pass instanceof, so check name
     if (!(prevError instanceof DError) && prevError.name !== 'DError') {
@@ -47,9 +46,11 @@ module.exports = class DError extends MoleculerError {
           data: prevError.data
         }
 
+      this.stack += '\n' + prevError.stack.split('\n', 3)[1].trim()
       return
     }
 
+    this.stack += prevError.stack
     prevError.data.errStack.unshift({
       msg: this.msg,
       code: this.code,
