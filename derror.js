@@ -1,10 +1,28 @@
 const { MoleculerError } = require("moleculer").Errors
 
 //PERF: Can optimize stack by knowing call depth
-module.exports = class DError extends MoleculerError {
+DError = class DError extends MoleculerError {
   constructor(prevError, msg, code = 500, type = '', data = {}, external = false) {
 
-    super(msg, code, type, data)
+    //If second parameter is type and third is data, use the error lookup table
+    if (typeof (code) === "object") {
+      type = msg
+      data = code
+
+      if (type in DError.errMap) {
+        msg = DError.errMap[type].msg
+        code = DError.errMap[type].code
+        external = DError.errMap[type].external
+        super(msg, code, type, data)
+      }
+      else {
+        code = 500
+        super(msg, code, type, data)
+      }
+    } else {
+      super(msg, code, type, data)
+    }
+
     this.stack = '\n' + this.stack.split('\n', 3)[1].trim() //Create slim call stack
     this.msg = msg
     this.external = external
@@ -71,3 +89,8 @@ module.exports = class DError extends MoleculerError {
     }
   }
 }
+
+DError.errMap = {}
+DError.SetErrorMap = newErrMap => DError.errMap = newErrMap
+
+module.exports = DError
