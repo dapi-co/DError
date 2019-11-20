@@ -94,7 +94,7 @@ of arguments passed.
 To help with that, DError gives you the ability to set a **predefined** set of errors and their properties,
 and then simply tell it which one to use by specifying the type of error to use.
 
-An example is given below.
+Some examples are given below.
 
 ```js
 //Define your errors anywhere (e.g. in a DB)
