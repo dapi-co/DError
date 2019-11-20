@@ -20,6 +20,11 @@ DError also deals with the case where the previous error in the stack is a `Mole
 DError(prevError, msg, code = 500, type = '', data = {}, external = false)
 ```
 
+**Note**: This is a special constructor to be used when using the `ErrorMap` feature.
+```javascript
+DError(prevError, type = '', data = {})
+```
+
 # Dependencies
 
 - `MoleculerError`
@@ -80,6 +85,56 @@ the default parameters, resulting in the following return object.
   errCode: 'CONNECTION_ID_NOT_FOUND'
 }
 ```
+
+## Error Maps
+
+Using DError in a consistent way can be difficult, especially given the relatively large number
+of arguments passed. 
+
+To help with that, DError gives you the ability to set a **predefined** set of errors and their properties,
+and then simply tell it which one to use by specifying the type of error to use.
+
+An example is given below.
+
+```js
+//Define your errors anywhere (e.g. in a DB)
+const myErrMap = {
+  MY_ERROR_TYPE: {
+    msg: 'msg1',
+    code: 222,
+    external: true
+  },
+
+  SOME_OTHER_ERR: {
+    msg: 'My message',
+    code: 512,
+    external: false
+  }
+}
+
+//On startup or update
+DError.SetErrorMap(myErrMap)
+
+//
+///Examples throwing an error from the map
+//
+
+//Example 1
+throw new DError(null, 'MY_ERROR_TYPE', {})
+//Which is equivalent to
+throw new DError(null, 'msg1', 222, 'MY_ERROR_TYPE', {}, true)
+
+//Example 2
+throw new DError(null, 'SOME_OTHER_ERR', {})
+//Which is equivalent to
+throw new DError(null, 'My message', 512, 'SOME_OTHER_ERR', {}, true)
+
+//You can still throw errors not defined in the map just like before
+throw new DError(prevErr, 'Some msg', 512, 'NEW_STUFF', {}, true)
+```
+
+`prevError` and `data` parameters must **not** be defined in the map and must always be
+provided at creation time of the class.
 
 # Notes
 
