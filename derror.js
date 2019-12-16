@@ -4,6 +4,10 @@ const { MoleculerError } = require("moleculer").Errors
 DError = class DError extends MoleculerError {
   constructor(prevError, msg, code = 500, type = '', data = {}, external = false) {
 
+    //In case someone sends data as null
+    if (!data)
+      data = {}
+
     //If second parameter is type and third is data, use the error lookup table
     if (typeof (code) === "object") {
       type = msg
