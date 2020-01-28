@@ -60,7 +60,7 @@ DError = class DError extends MoleculerError {
           data: prevError.data
         }
 
-      if (prevError instanceof Error)
+      else if (prevError instanceof Error)
         this.data.errStack[1] = {
           msg: prevError.message,
           code: prevError.code,
@@ -68,7 +68,20 @@ DError = class DError extends MoleculerError {
           data: prevError.data
         }
 
-      this.stack += '\n' + prevError.stack.split('\n', 3)[1].trim()
+
+      else if (typeof prevError === 'string') {
+        this.data.errStack[1] = {
+          msg: prevError,
+          code: 500,
+          type: '',
+          external: false,
+          data: {}
+        }
+      }
+
+      if (prevError.stack)
+        this.stack += '\n' + prevError.stack.split('\n', 3)[1].trim()
+
       return
     }
 
