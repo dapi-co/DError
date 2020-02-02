@@ -27,7 +27,7 @@ DError = class DError extends MoleculerError {
       super(msg, code, type, data)
     }
 
-    this.stack = '\n' + this.stack.split('\n', 3)[1].trim() //Create slim call stack
+    this.stack = '\n' + this.stack
     this.msg = msg
     this.external = external
 
