@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+      "outDir": "./build",
+      "allowJs": false,
+      "target": "ES6"
+  },
+      "include": [
+      "./derror.ts"
+  ]
+}

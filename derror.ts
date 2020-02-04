@@ -1,8 +1,28 @@
-const { MoleculerError } = require("moleculer").Errors
+const { MoleculerError } = require('moleculer').Errors
+
+interface IErrMapParams {
+  msg: string,
+  code: number,
+  external: boolean
+}
+
+interface IErrMap {
+  [propName: string]: IErrMapParams
+}
 
 //PERF: Can optimize stack by knowing call depth
-DError = class DError extends MoleculerError {
-  constructor(prevError, msg, code = 500, type = '', data = {}, external = false) {
+export default class DError {
+
+  private errMap: IErrMap
+  private stack: string
+  private message: string
+  private name: string = 'DError'
+  private errStack: [object]
+
+  public SetErrorMap = (newErrMap: IErrMap) => this.errMap = newErrMap
+
+  constructor(private prevError: any, private msg: string, private code: number = 500, private type: string = '',
+    private data: any = {}, private external: boolean = false) {
 
     //In case someone sends data as null
     if (!data)
@@ -13,18 +33,14 @@ DError = class DError extends MoleculerError {
       type = msg
       data = code
 
-      if (type in DError.errMap) {
-        msg = DError.errMap[type].msg
-        code = DError.errMap[type].code
-        external = DError.errMap[type].external
-        super(msg, code, type, data)
+      if (type in this.errMap) {
+        msg = this.errMap[type].msg
+        code = this.errMap[type].code
+        external = this.errMap[type].external
       }
       else {
         code = 500
-        super(msg, code, type, data)
       }
-    } else {
-      super(msg, code, type, data)
     }
 
     this.stack = '\n' + this.stack
@@ -43,7 +59,7 @@ DError = class DError extends MoleculerError {
     }
 
     //Cross network errors will be DError but will not pass instanceof, so check name
-    if (!(prevError instanceof DError) && prevError.name !== 'DError') {
+    if (!(prevError instanceof DError) && prevError.name as string !== 'DError') {
       this.data.errStack = [{
         msg: this.msg,
         code: this.code,
@@ -63,11 +79,10 @@ DError = class DError extends MoleculerError {
       else if (prevError instanceof Error)
         this.data.errStack[1] = {
           msg: prevError.message,
-          code: prevError.code,
-          type: prevError.type,
-          data: prevError.data
+          code: (prevError as any).code,
+          type: (prevError as any).type,
+          data: (prevError as any).data
         }
-
 
       else if (typeof prevError === 'string') {
         this.data.errStack[1] = {
@@ -106,8 +121,3 @@ DError = class DError extends MoleculerError {
     }
   }
 }
-
-DError.errMap = {}
-DError.SetErrorMap = newErrMap => DError.errMap = newErrMap
-
-module.exports = DError

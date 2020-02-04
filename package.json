@@ -10,5 +10,8 @@
     "Moleculer"
   ],
   "author": "bloeys",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^13.7.0"
+  }
 }
