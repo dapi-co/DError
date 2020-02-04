@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
-      "outDir": "./build",
-      "allowJs": false,
-      "target": "ES6"
+    "outDir": "./build",
+    "allowJs": false,
+    "target": "ES6",
+    "declaration": true
   },
-      "include": [
-      "./derror.ts"
+  "include": [
+    "./derror.ts"
   ]
 }

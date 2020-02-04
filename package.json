@@ -2,7 +2,8 @@
   "name": "@dapi-co/derror",
   "version": "1.0.8",
   "description": "Dapi error class for Moleculer framework.",
-  "main": "derror.js",
+  "main": "build/derror.js",
+  "types": "build/derror.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

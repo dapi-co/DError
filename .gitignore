@@ -1,3 +1,6 @@
+#TS
+build/
+
 # Logs
 logs
 *.log

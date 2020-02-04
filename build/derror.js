@@ -1,5 +1,5 @@
 const { MoleculerError } = require('moleculer').Errors;
-//PERF: Can optimize stack by knowing call depth
+//PERF: Can optimize stack by knowing call depth 
 export default class DError {
     constructor(prevError, msg, code = 500, type = '', data = {}, external = false) {
         this.prevError = prevError;
