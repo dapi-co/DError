@@ -10,7 +10,7 @@ interface IErrMap {
   [propName: string]: IErrMapParams
 }
 
-//PERF: Can optimize stack by knowing call depth
+//PERF: Can optimize stack by knowing call depth 
 export default class DError {
 
   private errMap: IErrMap
