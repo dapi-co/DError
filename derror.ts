@@ -13,9 +13,9 @@ interface IErrMap {
 //PERF: Can optimize stack by knowing call depth 
 export default class DError {
 
-  private errMap: IErrMap
-  private stack: string
-  private message: string
+  private errMap: IErrMap = {}
+  private stack: string = ''
+  private message: string = ''
   private name: string = 'DError'
   private errStack: [object]
 
