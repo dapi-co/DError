@@ -11,7 +11,7 @@ interface IErrMap {
 }
 
 //PERF: Can optimize stack by knowing call depth 
-export default class DError {
+export class DError {
 
   private errMap: IErrMap = {}
   private stack: string = ''
