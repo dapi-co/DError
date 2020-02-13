@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "./build",
     "allowJs": false,
-    "target": "ES5",
+    "target": "ES2019",
     "declaration": true
   },
   "include": [
