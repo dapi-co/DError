@@ -10,16 +10,18 @@ interface IErrMap {
   [propName: string]: IErrMapParams
 }
 
-//PERF: Can optimize stack by knowing call depth 
+let errMap: IErrMap = {}
+export function SetErrorMap(newErrMap: IErrMap) {
+  errMap = newErrMap
+}
+
+//PERF: Can optimize stack by knowing call depth
 export class DError {
 
-  private errMap: IErrMap = {}
   private stack: string = ''
   private message: string = ''
   private name: string = 'DError'
   private errStack: [object]
-
-  public SetErrorMap = (newErrMap: IErrMap) => this.errMap = newErrMap
 
   constructor(private prevError: any, private msg: string, private code: number = 500, private type: string = '',
     private data: any = {}, private external: boolean = false) {
@@ -33,10 +35,10 @@ export class DError {
       type = msg
       data = code
 
-      if (type in this.errMap) {
-        msg = this.errMap[type].msg
-        code = this.errMap[type].code
-        external = this.errMap[type].external
+      if (type in errMap) {
+        msg = errMap[type].msg
+        code = errMap[type].code
+        external = errMap[type].external
       }
       else {
         code = 500
