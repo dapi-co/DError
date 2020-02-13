@@ -23,7 +23,7 @@ export class DError {
   private name: string = 'DError'
   private errStack: [object]
 
-  constructor(private prevError: any, private msg: string, private code: number = 500, private type: string = '',
+  constructor(private prevError: any, private msg: string, private code: any | number = 500, private type: string = '',
     private data: any = {}, private external: boolean = false) {
 
     //In case someone sends data as null
