@@ -5,6 +5,7 @@
   "main": "build/derror.js",
   "types": "build/derror.d.ts",
   "scripts": {
+    "prepare": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
