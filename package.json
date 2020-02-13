@@ -1,6 +1,6 @@
 {
   "name": "@dapi-co/derror",
-  "version": "1.1.8",
+  "version": "1.1.7",
   "description": "Dapi error class for Moleculer framework.",
   "main": "build/derror.js",
   "types": "build/derror.d.ts",
