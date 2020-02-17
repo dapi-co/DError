@@ -21,9 +21,8 @@ export class DError {
   private stack: string = ''
   private message: string = ''
   private name: string = 'DError'
-  private errStack: [object]
 
-  constructor(private prevError: any, private msg: string, private code: any | number = 500, private type: string = '',
+  constructor(prevError: any, private msg: string, private code: any | number = 500, private type: string = '',
     private data: any = {}, private external: boolean = false) {
 
     //In case someone sends data as null
@@ -47,7 +46,6 @@ export class DError {
 
     this.stack = '\n' + this.stack
     this.msg = msg
-    this.code = code
     this.external = external
 
     if (!prevError) {
@@ -114,7 +112,7 @@ export class DError {
     this.data.errStack = prevError.data.errStack
 
     //Older external errors take precedence to be shown to the user
-    if (prevError.data.errStack[0].external) {
+    if (prevError.external) {
       this.message = prevError.message
       this.msg = prevError.msg
       this.code = prevError.code
