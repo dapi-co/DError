@@ -47,6 +47,7 @@ export class DError {
 
     this.stack = '\n' + this.stack
     this.msg = msg
+    this.code = code
     this.external = external
 
     if (!prevError) {
