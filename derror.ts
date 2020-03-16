@@ -38,6 +38,12 @@ export class DError {
         msg = errMap[type].msg
         code = errMap[type].code
         external = errMap[type].external
+
+        this.msg = msg;
+        this.code = code;
+        this.type = type;
+        this.data = data;
+        this.external = external;
       }
       else {
         code = 500
