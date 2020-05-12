@@ -50,7 +50,7 @@ export class DError {
       }
     }
 
-    this.stack = '\n' + this.stack
+    this.stack = '\n' + (this.stack || Error().stack.split('\n', 3)[2])
     this.msg = msg
     this.external = external
 
@@ -102,7 +102,7 @@ export class DError {
       }
 
       if (prevError.stack)
-        this.stack += '\n' + prevError.stack.split('\n', 3)[1].trim()
+        this.stack += '\n' + prevError.stack
 
       return
     }
